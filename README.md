@@ -92,3 +92,6 @@ https://www.canva.com/ja_jp/create/cards/thank-you-cards/
 
 ## 画面遷移図
 https://www.figma.com/file/TOFZjly4T9LZhh8XoDbnSZ/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?type=design&node-id=0%3A1&mode=design&t=A7EIH1wPaxPrpXRQ-1
+
+## ER図
+[![Image from Gyazo](https://i.gyazo.com/6d661e7cb0fb5e1f24a7d534297d08db.png)](https://gyazo.com/6d661e7cb0fb5e1f24a7d534297d08db)

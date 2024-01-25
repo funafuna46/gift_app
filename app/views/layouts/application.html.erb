@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
-    <title>App</title>
+    <title>Gift App</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+
+    <!-- LIFF SDKの組み込み -->
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   </head>
 
   <body>

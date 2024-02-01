@@ -1,0 +1,14 @@
+<%= form_with id: 'gift_card_form', model: Gift.new, url: preview_template_gifts_path, local: true do |form| %>
+  <% GiftCardTemplate.all.each do |template| %>
+    <label>
+      <%= form.radio_button :design_id, template.id %>
+      <%= image_tag template.image_url, alt: template.name %>
+    </label>
+  <% end %>
+
+  <%= form.text_field :recipient, placeholder: '受取人名' %>
+  <%= form.date_field :expiration_date %>
+  <%= form.submit 'プレビュー' %>
+<% end %>
+
+<div id="preview_area"></div>

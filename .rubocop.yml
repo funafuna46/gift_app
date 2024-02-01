@@ -25,3 +25,10 @@ Style/FrozenStringLiteralComment:
 
 Rails/HasManyOrHasOneDependent:
   Enabled: false
+
+Metrics/MethodLength:
+  CountComments: false
+  Max: 30
+
+Layout/ArgumentAlignment:
+  Enabled: false

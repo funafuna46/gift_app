@@ -2,8 +2,9 @@ class Gift < ApplicationRecord
   belongs_to :user
   belongs_to :gift_category
   belongs_to :recipient_category
+  belongs_to :gift_card_template, foreign_key: 'design_id'
 
-  validates :design, presence: true
+  validates :design_id, presence: true
   validates :recipient, presence: true
   validates :content, presence: true, length: { maximum: 20 }
   validates :public_status, presence: true

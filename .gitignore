@@ -39,3 +39,5 @@
 public/.DS_Store
 
 .env
+
+ngrok.yml

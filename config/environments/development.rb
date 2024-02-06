@@ -69,4 +69,9 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   BetterErrors::Middleware.allow_ip! "0.0.0.0/0"
+
+  # ngrokが生成したホストを追加
+  config.hosts << "host.docker.internal:3000"
+  config.hosts << ".ngrok-free.app"
+
 end

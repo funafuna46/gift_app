@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <title>Gift App</title>
+    <title>Thankyoupon</title>
+    <%= Gon::Base.render_data %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
-
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <!-- LIFF SDKの組み込み -->
-    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   </head>
 
   <body>

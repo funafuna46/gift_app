@@ -1,14 +1,21 @@
-<%= form_with id: 'gift_card_form', model: Gift.new, url: preview_template_gifts_path, local: true do |form| %>
-  <% GiftCardTemplate.all.each do |template| %>
-    <label>
-      <%= form.radio_button :design_id, template.id %>
-      <%= image_tag template.image_url, alt: template.name %>
-    </label>
+<div class="flex flex-col items-center">
+  <%= form_with id: 'gift_card_form', model: Gift.new, url: preview_template_gifts_path, local: true do |form| %>
+    <% GiftCardTemplate.all.each do |template| %>
+      <label>
+        <%= form.radio_button :design_id, template.id %>
+        <%= image_tag template.image_url, alt: template.name %>
+      </label>
+    <% end %>
+
+    <%= form.text_field :recipient, placeholder: '受取人名' %>
+    <%= form.date_field :expiration_date %>
+    <div class="text-center">
+      <%= form.submit 'プレビュー', class: "bg-blue-300 text-white rounded px-2 py-2" %>
+    </div>
   <% end %>
 
-  <%= form.text_field :recipient, placeholder: '受取人名' %>
-  <%= form.date_field :expiration_date %>
-  <%= form.submit 'プレビュー' %>
-<% end %>
-
-<div id="preview_area"></div>
+  <div id="preview_area"></div>
+  <div>
+    <button id="send_gift_button" class="bg-orange-300 text-white rounded px-2 py-2">クーポン券を贈る</button>
+  </div>
+</div>

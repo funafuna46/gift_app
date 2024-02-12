@@ -1,7 +1,7 @@
-class TemplateGiftsController < ApplicationController
+class OriginalGiftsController < ApplicationController
   # ギフト券作成ページの表示
   def index
-    @templates = GiftCardTemplate.where(has_message: true)
+    @templates = GiftCardTemplate.where(has_message: false)
     render 'gift_creator'
   end
 
@@ -22,7 +22,7 @@ class TemplateGiftsController < ApplicationController
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: turbo_stream.update('preview_area',
-                                                  partial: 'template_gifts/preview',
+                                                  partial: 'original_gifts/preview',
                                                   locals: { preview_url: image_url['url'] })
       end
     end

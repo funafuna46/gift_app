@@ -11,12 +11,31 @@ class OriginalGiftsController < ApplicationController
     design = GiftCardTemplate.find(gift.design_id)
 
     image_url = Cloudinary::Uploader.upload(design.image_url,
-      overlay: {
-        text: "#{gift.recipient} - #{gift.expiration_date}",
-        gravity: "south_east",
-        y: 20, x: 20,
-        font_family: "Arial", font_size: 20, color: "#000000"
-      })
+      transformation: [
+        {
+          overlay: "text:Arial_20:TO: #{gift.recipient}",
+          gravity: "north_west",
+          x: 100, y: 100,
+          color: "#000000"
+        },
+        {
+          overlay: "text:Arial_40:#{gift.title}",
+          gravity: "center",
+          color: "#000000"
+        },
+        {
+          overlay: "text:Arial_20:#{gift.content}",
+          gravity: "center",
+          y: 50, # Y軸を調整してテキストを中央より下に配置
+          color: "#000000"
+        },
+        {
+          overlay: "text:Arial_20:有効期限:#{gift.expiration_date}",
+          gravity: "south_east",
+          x: 100, y: 80,
+          color: "#000000"
+        }
+      ])
 
     # Turbo Streamを使用してプレビュー画像を更新
     respond_to do |format|
@@ -31,6 +50,6 @@ class OriginalGiftsController < ApplicationController
   private
 
   def gift_params
-    params.require(:gift).permit(:recipient, :expiration_date, :design_id)
+    params.require(:gift).permit(:recipient, :expiration_date, :design_id, :title, :content)
   end
 end

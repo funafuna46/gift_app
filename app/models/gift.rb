@@ -6,6 +6,7 @@ class Gift < ApplicationRecord
 
   validates :design_id, presence: true
   validates :recipient, presence: true
+  validates :title, presence: true
   validates :content, presence: true, length: { maximum: 20 }
   validates :public_status, presence: true
 end

@@ -42,7 +42,7 @@ document.addEventListener('turbo:load', () => {
                     "type": "uri",
                     "label": "クーポン券を見る",
                     // クーポン券詳細ページ、もしくは専用ページに変更する
-                    "uri": "#"
+                    "uri": "https://res.cloudinary.com/dk4bsjak1/image/upload/f_auto/v1707704247/%E8%82%A9%E3%81%9F%E3%81%9F%E3%81%8D%E5%88%B8_p8cqbr.png"
                   }
                 ]
               }
@@ -53,6 +53,7 @@ document.addEventListener('turbo:load', () => {
           if (res) {
             // succeeded in sending a message through TargetPicker
             console.log(`[${res.status}] Message sent!`);
+            window.location.href = '/static_pages/completion'; // 完了メッセージを表示するページへリダイレクト
           } else {
             // sending message canceled
             console.log("TargetPicker was closed!");

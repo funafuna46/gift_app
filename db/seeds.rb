@@ -1,4 +1,6 @@
 GiftCardTemplate.create([
-  { name: '肩たたき券', image_url: '/gift_cards/shoulder_massage.png', image_path: 'public/gift_cards/shoulder_massage.png' },
-  { name: 'カフェ券', image_url: '/gift_cards/cafe.png', image_path: 'public/gift_cards/cafe.png' }
+  { name: '肩たたき券', image_url: 'https://res.cloudinary.com/dk4bsjak1/image/upload/f_auto/v1707704247/%E8%82%A9%E3%81%9F%E3%81%9F%E3%81%8D%E5%88%B8_p8cqbr.png', has_message: true },
+  { name: 'カフェ券', image_url: 'https://res.cloudinary.com/dk4bsjak1/image/upload/f_auto/v1707706100/cafe_h3bdsw.png', has_message: true },
+  { name: 'star', image_url: 'https://res.cloudinary.com/dk4bsjak1/image/upload/f_auto/v1707708594/star_xjbuvg.png', has_message: false },
+  { name: 'blue', image_url: 'https://res.cloudinary.com/dk4bsjak1/image/upload/f_auto/v1707709020/blue_x0nwho.png', has_message: false },
 ])

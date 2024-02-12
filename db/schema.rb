@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_01_070052) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_09_091542) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,10 +26,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_01_070052) do
 
   create_table "gift_card_templates", force: :cascade do |t|
     t.string "name"
-    t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image_path"
+    t.string "image_url"
+    t.boolean "has_message", default: false
   end
 
   create_table "gift_categories", force: :cascade do |t|

@@ -1,7 +1,7 @@
 class TemplateGiftsController < ApplicationController
   # ギフト券作成ページの表示
   def index
-    @templates = GiftCardTemplate.all
+    @templates = GiftCardTemplate.where(has_message: true)
     render 'gift_creator'
   end
 
@@ -10,7 +10,7 @@ class TemplateGiftsController < ApplicationController
     gift = Gift.new(gift_params)
     design = GiftCardTemplate.find(gift.design_id)
 
-    image_url = Cloudinary::Uploader.upload(design.image_path,
+    image_url = Cloudinary::Uploader.upload(design.image_url,
       overlay: {
         text: "#{gift.recipient} - #{gift.expiration_date}",
         gravity: "south_east",

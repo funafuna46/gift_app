@@ -1,5 +1,5 @@
 <div class="flex flex-col items-center">
-  <%= form_with id: 'gift_card_form', model: Gift.new, url: preview_template_gifts_path, local: true do |form| %>
+  <%= form_with id: 'gift_card_form', model: Gift.new, url: preview_original_gifts_path, local: true do |form| %>
     <% @templates.each do |template| %>
       <label>
         <%= form.radio_button :design_id, template.id %>
@@ -8,6 +8,8 @@
     <% end %>
 
     <%= form.text_field :recipient, placeholder: '受取人名' %>
+    <%= form.text_field :title, placeholder: 'クーポン名' %>
+    <%= form.text_area :content, placeholder: '一言メッセージ', rows: 3 %>
     <%= form.date_field :expiration_date %>
     <div class="text-center">
       <%= form.submit 'プレビュー', class: "bg-blue-300 text-white rounded px-2 py-2" %>

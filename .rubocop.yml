@@ -28,7 +28,7 @@ Rails/HasManyOrHasOneDependent:
 
 Metrics/MethodLength:
   CountComments: false
-  Max: 30
+  Max: 50
 
 Layout/ArgumentAlignment:
   Enabled: false

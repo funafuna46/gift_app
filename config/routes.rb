@@ -5,5 +5,10 @@ Rails.application.routes.draw do
       post :preview
     end
   end
+  resources :original_gifts, only: %i[index] do
+    collection do
+      post :preview
+    end
+  end
 
 end

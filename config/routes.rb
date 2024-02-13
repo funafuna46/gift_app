@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'static_pages#index'
   get 'static_pages/completion'
+  get 'static_pages/select_gift_type'
 
   resources :template_gifts, only: %i[index] do
     collection do

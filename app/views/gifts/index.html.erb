@@ -1,0 +1,17 @@
+<h1>ギフト券一覧</h1>
+
+<h2>テンプレートギフト券</h2>
+<% @template_gifts.each do |template_gift| %>
+  <div>
+    <p><%= image_tag template_gift.image_url %></p>
+    <!-- その他のテンプレートギフト券情報を表示 -->
+  </div>
+<% end %>
+
+<h2>その他のギフト券</h2>
+<% @gifts.each do |gift| %>
+  <div>
+    <p><%= image_tag gift.image_url %></p>
+    <!-- その他のギフト券情報を表示 -->
+  </div>
+<% end %>

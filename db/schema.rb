@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_12_065710) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_13_074909) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_12_065710) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "title"
+    t.string "image_url"
     t.index ["gift_category_id"], name: "index_gifts_on_gift_category_id"
     t.index ["recipient_category_id"], name: "index_gifts_on_recipient_category_id"
     t.index ["user_id"], name: "index_gifts_on_user_id"

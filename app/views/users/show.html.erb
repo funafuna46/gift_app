@@ -1,0 +1,8 @@
+<h1>ユーザープロフィール</h1>
+
+<p>名前: <%= @user.name %></p>
+<% if @user.avatar.present? %>
+  <p><%= image_tag @user.avatar %></p>
+<% else %>
+  <p>画像はありません。</p>
+<% end %>

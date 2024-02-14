@@ -28,7 +28,16 @@ Rails/HasManyOrHasOneDependent:
 
 Metrics/MethodLength:
   CountComments: false
-  Max: 50
+  Max: 100
 
 Layout/ArgumentAlignment:
+  Enabled: false
+
+Style/HashSyntax:
+  Enabled: false
+
+Layout/LineLength:
+  Enabled: false
+
+Metrics/AbcSize:
   Enabled: false

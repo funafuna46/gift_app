@@ -1,0 +1,11 @@
+<div class="flex flex-col items-center">
+  <div class="mb-4">
+    <img src="<%= @gift.image_url %>" alt="<%= @gift.title %>">
+  </div>
+  <div class="mb-4">
+    <p>TO: <%= @gift.recipient %></p>
+    <p>有効期限: <%= @gift.expiration_date %></p>
+  </div>
+
+  <button id="send_gift_button" class="bg-orange-300 text-white rounded px-2 py-2">友だちに贈る</button>
+</div>

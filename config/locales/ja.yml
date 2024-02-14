@@ -1,0 +1,8 @@
+ja:
+  enums:
+    recipient_category:
+      category_type:
+        family: "家族"
+        friend: "友人"
+        colleague: "同僚"
+        other: "その他"

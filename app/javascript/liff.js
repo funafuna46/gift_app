@@ -6,7 +6,32 @@ document.addEventListener('turbo:load', () => {
     const loggedOutMessage = document.getElementById('loggedOutMessage');
 
     if (liff.isLoggedIn()) {
-      if (loggedInMessage) loggedInMessage.style.display = 'block';
+      const idToken = liff.getIDToken();
+      const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+      const body = `idToken=${encodeURIComponent(idToken)}`;
+
+      fetch('/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'X-CSRF-Token': csrfToken
+        },
+        body: body
+      })
+      .then(response => {
+        if (response.status === 400) {
+          // IDトークン期限切れの場合、再ログインを促す
+          liff.login();
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Logged in user:', data);
+        if (loggedInMessage) loggedInMessage.style.display = 'block';
+      })
+      .catch((error) => {
+        console.error('Error sending ID token to server:', error);
+      });
     } else {
       // ユーザーがログインしていない場合
       if (loggedOutMessage) loggedOutMessage.style.display = 'block';

@@ -1,5 +1,5 @@
 <div class="flex flex-col items-center">
-  <%= form_with id: 'gift_card_form', model: Gift.new, url: preview_original_gifts_path, local: true do |form| %>
+  <%= form_with id: 'gift_card_form', model: Gift.new, url: original_gifts_path, local: true do |form| %>
     <% @templates.each do |template| %>
       <label>
         <%= form.radio_button :design_id, template.id %>
@@ -7,12 +7,44 @@
       </label>
     <% end %>
 
-    <%= form.text_field :recipient, placeholder: '受取人名' %>
-    <%= form.text_field :title, placeholder: 'クーポン名' %>
-    <%= form.text_area :content, placeholder: '一言メッセージ', rows: 3 %>
-    <%= form.date_field :expiration_date %>
-    <div class="text-center">
-      <%= form.submit 'プレビュー', class: "bg-blue-300 text-white rounded px-2 py-2" %>
+    <div class="mb-4">
+      <%= form.label :recipient, '受取人名：' %>
+      <%= form.text_field :recipient, class: "border border-gray-300 rounded px-2 py-1" %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.label :title, 'クーポン名：' %>
+      <%= form.text_field :title, placeholder: '肩たたき券', class: "border border-gray-300 rounded px-2 py-1" %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.label :content, 'メッセージ：' %>
+      <%= form.text_field :content, placeholder: '20文字以下', class: "border border-gray-300 rounded px-2 py-1" %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.label :expiration_date, '有効期限：' %>
+      <%= form.date_field :expiration_date, class: "border border-gray-300 rounded px-2 py-1" %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.label :public_status, '一覧への公開/非公開：' %>
+      <%= form.select :public_status, [['公開', true], ['非公開', false]], include_blank: '選択してください' %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.label :recipient_category_id, '受取人カテゴリ：' %>
+      <%= form.select :recipient_category_id,
+          RecipientCategory.all.map { |category| [I18n.t("enums.recipient_category.category_type.#{category.category_type}"), category.id] },
+          include_blank: '選択してください',
+          class: "border border-gray-300 rounded px-2 py-1" %>
+    </div>
+
+    <div class="text-center mb-4">
+      <%= form.submit 'プレビュー', name: 'commit', value: 'preview', class: "bg-blue-300 text-white rounded px-2 py-2" %>
+    </div>
+    <div class="text-center mb-4">
+      <%= form.submit 'この内容で作成', name: 'commit', value: 'create', class: "bg-purple-300 text-white rounded px-2 py-2" %>
     </div>
   <% end %>
 

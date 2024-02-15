@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  require 'net/http'
+
   def show
     @user = User.find_by(id: session[:user_id])
   end

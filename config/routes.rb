@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'static_pages#index'
   get 'static_pages/completion'
   get 'static_pages/select_gift_type'
+  delete '/logout', to: 'sessions#destroy'
 
   resources :users, only: %i[show create]
   resources :gifts, only: %i[index show]

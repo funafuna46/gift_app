@@ -1,45 +1,40 @@
 document.addEventListener('turbo:load', () => {
   console.log('turbo:load イベントが発火しました');
+  // CSRFトークン(Railsが自動的に生成したもの）をHTMLから取得して変数に保存
+  const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
   const LIFF_ID = gon.liff_id;
-  liff.init({ liffId: LIFF_ID }).then(() => {
-    const loggedInMessage = document.getElementById('loggedInMessage');
-    const loggedOutMessage = document.getElementById('loggedOutMessage');
 
-    if (liff.isLoggedIn()) {
-      const idToken = liff.getIDToken();
-      const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-      const body = `idToken=${encodeURIComponent(idToken)}`;
+  // LIFF SDKを初期化し、LIFF_IDを使ってLIFFアプリを起動する
+  liff
+    .init({
+      liffId: LIFF_ID,
+      withLoginOnExternalBrowser: true
+    })
 
-      fetch('/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'X-CSRF-Token': csrfToken
-        },
-        body: body
-      })
-      .then(response => {
-        if (response.status === 400) {
-          // IDトークン期限切れの場合、再ログインを促す
-          liff.login();
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log('Logged in user:', data);
-        if (loggedInMessage) loggedInMessage.style.display = 'block';
-      })
-      .catch((error) => {
-        console.error('Error sending ID token to server:', error);
+  liff
+    .ready.then(() => {
+      // ログインしているユーザーのIDトークンを取得
+      const idToken = liff.getIDToken()
+      const body = `idToken=${encodeURIComponent(idToken)}`
+      // HTTP POSTリクエストを使い、取得したIDトークンをバックエンドの/usersエンドポイントに送信
+      const request = new Request('/users', {
+            headers: {
+              // 送信するデータのタイプを指定。ここではURLエンコードされたフォームデータを送信
+              'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+              // CSRF攻撃から保護するためのトークン。サーバーにリクエストが信頼できるものであることを伝える
+              'X-CSRF-Token': token
+          },
+          method: 'POST',
+          body: body
       });
-    } else {
-      // ユーザーがログインしていない場合
-      if (loggedOutMessage) loggedOutMessage.style.display = 'block';
-      liff.login();
-    }
-  }).catch((err) => {
-    console.error('LIFF Initialization failed', err);
-  });
+
+      fetch(request)
+      .then(response => response.json())
+      .then(data => {
+        data_id = data
+      })
+    })
+  })
 
   // sendButtonにイベントリスナーを追加
   const sendButton = document.getElementById('send_gift_button');
@@ -90,4 +85,3 @@ document.addEventListener('turbo:load', () => {
         });
     });
   }
-});

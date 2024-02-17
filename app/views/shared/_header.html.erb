@@ -1,0 +1,23 @@
+<header class=" sticky top-0 bg-yellow-200 p-4 flex justify-between">
+  <div>
+    <%= link_to 'Thankyoupon', root_path, class: "text-lg font-bold text-orange-400" %>
+  </div>
+
+  <% if current_user %>
+    <div class="group relative cursor-pointer">
+      <div class="flex items-center justify-end">
+        <a class="menu-hover">
+          <%= image_tag current_user.avatar, class: "rounded-full h-10 w-10 border border-card-line flex items-center justify-center" %>
+        </a>
+      </div>
+      <div class="invisible absolute right-0 items-center bg-white bg-card-body border border-card-line z-50 flex w-auto min-w-max flex-col py-1 transform -translate-x-1 group-hover:visible">
+        <div class="flex items-center my-1 px-4 py-1 hover:text-point">
+          <%= link_to "プロフィール", user_path(current_user) %>
+        </div>
+        <div class="flex items-center my-1 px-4 py-1 hover:text-point">
+          <%= link_to "マイページ", user_path(current_user) %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</header>

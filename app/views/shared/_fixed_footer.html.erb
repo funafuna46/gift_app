@@ -1,0 +1,18 @@
+<footer class="fixed inset-x-0 bottom-0 bg-yellow-200 p-4">
+  <nav class="flex justify-center">
+    <ul class="flex w-full">
+      <li class='flex-grow text-center'>
+        <%= link_to 'ホーム', root_path, class: 'py-2 text-gray-600' %>
+      </li>
+      <li class='flex-grow text-center'>
+        <%= link_to 'クーポン券作成', static_pages_select_gift_type_path, class: 'py-2 text-gray-600' %>
+      </li>
+      <li class='flex-grow text-center'>
+        <%= link_to 'マイページ', user_path(current_user), class: 'py-2 text-gray-600' %>
+      </li>
+      <li class='flex-grow text-center'>
+        <%= link_to '一覧', gifts_path, class: 'py-2 text-gray-600' %>
+      </li>
+    </ul>
+  </nav>
+</footer>

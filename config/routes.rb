@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'my_pages/show'
   root 'static_pages#index'
   get 'static_pages/completion'
   get 'static_pages/select_gift_type'
@@ -6,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[show create]
   resources :gifts, only: %i[index show]
+  resource :mypage, only: :show
 
   resources :template_gifts, only: %i[index] do
     collection do

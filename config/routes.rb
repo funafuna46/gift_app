@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[show create]
   resources :gifts, only: %i[index show]
+  resource :mypage, only: :show
 
   resources :template_gifts, only: %i[index] do
     collection do

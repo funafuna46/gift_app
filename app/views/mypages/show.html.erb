@@ -1,0 +1,66 @@
+<!-- タブのナビゲーション -->
+<div class="tabs flex justify-center mt-2 mb-2">
+  <%= link_to "作成したクーポン券", mypage_path(tab: 'created'),
+      data: { turbo_frame: 'gifts_frame' },
+      class: "text-xs px-4 py-2 border border-orange-300 rounded #{'bg-orange-300 text-white' if params[:tab] == 'created' || params[:tab].nil?}" %>
+  <%= link_to "お気に入りのクーポン券", mypage_path(tab: 'favorites'),
+      data: { turbo_frame: 'gifts_frame' },
+      class: "text-xs px-4 py-2 border border-orange-300 rounded #{'bg-orange-300 text-white' if params[:tab] == 'favorites'}" %>
+</div>
+
+<!-- タブの内容を表示するTurbo Frame -->
+<turbo-frame id="gifts_frame">
+  <% if params[:tab] == 'favorites' %>
+    <!-- お気に入りのクーポン券 -->
+    <% if @favorite_gifts.empty? %>
+      <p>お気に入りのクーポン券はありません</p>
+    <% else %>
+      <% @favorite_gifts.each do |gift| %>
+        <div class="flex items-center mb-2 border border-orange-300 p-2 rounded mx-4">
+          <%= link_to gift_path(gift), class: "flex items-center" do %>
+            <div class="flex-none ml-2">
+              <%= image_tag gift.image_url, style: "width: 150px; height: 100px;" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  <% else %>
+    <!-- ユーザーが作成したクーポン券 -->
+    <div>
+      <% if @gifts.empty? %>
+        <p>作成したクーポン券はありません</p>
+      <% else %>
+        <% @gifts.each do |gift| %>
+          <div class="flex items-center mb-2 border border-orange-300 p-2 rounded mx-4">
+            <%= link_to gift_path(gift), class: "flex items-center" do %>
+              <div class="flex-none ml-2">
+                <%= image_tag gift.image_url, style: "width: 150px; height: 100px;" %>
+              </div>
+              <div class="flex-grow ml-4">
+                <p class="text-xs">贈り先： <%= gift.recipient %></p>
+                <p class="text-xs">有効期限： <%= gift.expiration_date %></p>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</turbo-frame>
+
+<script>
+  document.addEventListener('turbo:load', () => {
+    const tabs = document.querySelectorAll('.tabs a');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', (event) => {
+        // すべてのタブからアクティブなスタイルを削除
+        tabs.forEach(t => t.classList.remove('bg-orange-300', 'text-white'));
+
+        // クリックされたタブにアクティブなスタイルを適用
+        event.currentTarget.classList.add('bg-orange-300', 'text-white');
+      });
+    });
+  });
+</script>

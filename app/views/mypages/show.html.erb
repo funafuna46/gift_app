@@ -1,3 +1,16 @@
+<h1><%= @user.name %>さんの作成したクーポン券</h1>
 <div>
-  <p>マイページ</p>
+  <% @gifts.each do |gift| %>
+    <div class="flex items-center mb-2 border border-gray-300 p-2 rounded mx-4">
+      <%= link_to gift_path(gift), class: "flex items-center" do %>
+        <div class="flex-none ml-2">
+          <%= image_tag gift.image_url, style: "width: 150px; height: 100px;" %>
+        </div>
+        <div class="flex-grow ml-4">
+          <p class="text-xs">贈り先： <%= gift.recipient %></p>
+          <p class="text-xs">有効期限： <%= gift.expiration_date %></p>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>

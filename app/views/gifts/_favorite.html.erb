@@ -1,0 +1,6 @@
+<!-- お気に入りしていない際に表示するファイル -->
+<div class="flex justify-end">
+  <%= link_to gift_favorites_path(gift), id: "favorite_link_for_#{gift.id}", data: { turbo_method: :post } do %>
+    <i class="fa-regular fa-heart text-red-400"></i>
+  <% end %>
+</div>

@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   resources :users, only: %i[show create]
-  resources :gifts, only: %i[index show]
+  resources :gifts, only: %i[index show] do
+    resources :favorites, only: %i[create destroy]
+  end
+
   resource :mypage, only: :show
 
   resources :template_gifts, only: %i[index] do

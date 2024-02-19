@@ -3,6 +3,8 @@ class Gift < ApplicationRecord
   belongs_to :gift_category
   belongs_to :recipient_category
   belongs_to :gift_card_template, foreign_key: 'design_id', inverse_of: :gifts
+  has_many :favorites
+  has_many :favorited_by, through: :favorites, source: :user
 
   validates :design_id, presence: true
   validates :recipient, presence: true

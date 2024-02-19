@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "favorite_link_for_#{@gift.id}" do %>
+  <%= render "gifts/unfavorite", gift: @gift %>
+<% end %>

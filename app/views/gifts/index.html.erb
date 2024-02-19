@@ -1,17 +1,29 @@
 <h1>ギフト券一覧</h1>
 
 <h2>テンプレートギフト券</h2>
-<% @template_gifts.each do |template_gift| %>
-  <div>
-    <p><%= image_tag template_gift.image_url %></p>
-    <!-- その他のテンプレートギフト券情報を表示 -->
-  </div>
-<% end %>
+<div class="flex flex-wrap m-2">
+  <% @template_gifts.each do |template_gift| %>
+    <div class="w-1/2 p-2">
+      <p><%= image_tag template_gift.image_url, class: "w-full h-auto" %></p>
+      <% if current_user.favorite?(template_gift) %>
+        <%= render 'gifts/unfavorite', { gift: template_gift } %>
+      <% else %>
+        <%= render 'gifts/favorite', { gift: template_gift } %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
 
 <h2>その他のギフト券</h2>
-<% @gifts.each do |gift| %>
-  <div>
-    <p><%= image_tag gift.image_url %></p>
-    <!-- その他のギフト券情報を表示 -->
-  </div>
-<% end %>
+<div class="flex flex-wrap m-2">
+  <% @gifts.each do |gift| %>
+  <div class="w-1/2 p-2">
+      <p><%= image_tag gift.image_url, class: "w-full h-auto" %></p>
+      <% if current_user.favorite?(gift) %>
+        <%= render 'gifts/unfavorite', { gift: gift } %>
+      <% else %>
+        <%= render 'gifts/favorite', { gift: gift } %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

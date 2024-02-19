@@ -1,0 +1,9 @@
+<!-- お気に入りされている際に表示するファイル -->
+<div class="flex justify-end">
+  <% favorite = current_user.favorites.find_by(gift: gift) %>
+  <% if favorite.present? %>
+    <%= link_to gift_favorite_path(gift_id: gift.id, id: favorite.id), id: "unfavorite_link_for_#{gift.id}", data: { turbo_method: :delete } do %>
+      <i class="fa-solid fa-heart text-red-400"></i>
+    <% end %>
+  <% end %>
+</div>

@@ -73,13 +73,19 @@ class OriginalGiftsController < ApplicationController
     end
   end
 
+  def destroy
+    @gift = Gift.find(params[:id])
+    if @gift.user == current_user
+      @gift.destroy!
+      redirect_to mypage_path, status: :see_other, notice: 'ギフト券が削除されました。'
+    else
+      redirect_to mypage_path, alert: '削除権限がありません。'
+    end
+  end
+
   private
 
   def gift_params
     params.require(:gift).permit(:recipient, :expiration_date, :design_id, :title, :content, :public_status, :recipient_category_id)
-  end
-
-  def current_user
-    @current_user ||= User.find_by(id: session[:user_id])
   end
 end

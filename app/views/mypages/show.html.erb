@@ -33,7 +33,7 @@
       <% else %>
         <% @gifts.each do |gift| %>
           <div class="flex items-center mb-2 border border-orange-300 p-2 rounded mx-4">
-            <%= link_to gift_path(gift), class: "flex items-center" do %>
+            <%= link_to gift_path(gift), class: "flex items-center", data: { turbo: false } do %>
               <div class="flex-none ml-2">
                 <%= image_tag gift.image_url, style: "width: 150px; height: 100px;" %>
               </div>

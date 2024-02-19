@@ -41,3 +41,6 @@ Layout/LineLength:
 
 Metrics/AbcSize:
   Enabled: false
+
+I18nLocaleTexts:
+  Enabled: false

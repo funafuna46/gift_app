@@ -1,6 +1,11 @@
-<div class="flex flex-col items-center">
+<div class="flex flex-col items-center m-4">
   <div class="mb-4">
     <img src="<%= @gift.image_url %>" alt="<%= @gift.title %>">
+  </div>
+  <div class="flex justify-end w-full">
+    <%= button_to original_gift_path(@gift), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "text-gray-500" do %>
+      <i class="fa-solid fa-trash"></i>
+    <% end %>
   </div>
   <div class="mb-4">
     <p>TO: <%= @gift.recipient %></p>

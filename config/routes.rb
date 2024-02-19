@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :original_gifts, only: %i[index create] do
+  resources :original_gifts, only: %i[index create destroy] do
     collection do
       post :preview
     end

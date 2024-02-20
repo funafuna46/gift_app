@@ -1,39 +1,42 @@
-<div class="flex flex-col items-center">
+<div class="m-2 flex flex-col items-center">
   <%= form_with id: 'gift_card_form', model: Gift.new, url: original_gifts_path, local: true do |form| %>
-    <% @templates.each do |template| %>
+  <p class="text-sm">デザインを選んでください</p>
+    <div class="m-2 grid grid-cols-2 gap-4">
+      <% @templates.each do |template| %>
       <label>
         <%= form.radio_button :design_id, template.id %>
-        <%= image_tag template.image_url, alt: template.name %>
-      </label>
-    <% end %>
+        <%= image_tag template.image_url, alt: template.name, class: "w-full h-auto" %>
+        </label>
+      <% end %>
+    </div>
 
     <div class="mb-4">
-      <%= form.label :recipient, '受取人名：' %>
+      <%= form.label :recipient, '受取人名：', class: "text-sm" %>
       <%= form.text_field :recipient, class: "border border-gray-300 rounded px-2 py-1" %>
     </div>
 
     <div class="mb-4">
-      <%= form.label :title, 'クーポン名：' %>
+      <%= form.label :title, 'クーポン名：', class: "text-sm"  %>
       <%= form.text_field :title, placeholder: '肩たたき券', class: "border border-gray-300 rounded px-2 py-1" %>
     </div>
 
     <div class="mb-4">
-      <%= form.label :content, 'メッセージ：' %>
+      <%= form.label :content, 'メッセージ：', class: "text-sm"  %>
       <%= form.text_field :content, placeholder: '20文字以下', class: "border border-gray-300 rounded px-2 py-1" %>
     </div>
 
     <div class="mb-4">
-      <%= form.label :expiration_date, '有効期限：' %>
+      <%= form.label :expiration_date, '有効期限：', class: "text-sm"  %>
       <%= form.date_field :expiration_date, class: "border border-gray-300 rounded px-2 py-1" %>
     </div>
 
     <div class="mb-4">
-      <%= form.label :public_status, '一覧への公開/非公開：' %>
+      <%= form.label :public_status, '一覧への公開/非公開：', class: "text-sm"  %>
       <%= form.select :public_status, [['公開', true], ['非公開', false]], include_blank: '選択してください' %>
     </div>
 
     <div class="mb-4">
-      <%= form.label :recipient_category_id, '受取人カテゴリ：' %>
+      <%= form.label :recipient_category_id, '受取人カテゴリ：', class: "text-sm"  %>
       <%= form.select :recipient_category_id,
           RecipientCategory.all.map { |category| [I18n.t("enums.recipient_category.category_type.#{category.category_type}"), category.id] },
           include_blank: '選択してください',
@@ -41,15 +44,24 @@
     </div>
 
     <div class="text-center mb-4">
-      <%= form.submit 'プレビュー', name: 'commit', value: 'preview', class: "bg-blue-300 text-white rounded px-2 py-2" %>
+      <%= form.submit 'プレビュー', id: 'preview-button', name: 'commit', value: 'プレビュー', class: "bg-blue-300 text-white rounded px-2 py-2" %>
     </div>
-    <div class="text-center mb-4">
-      <%= form.submit 'この内容で作成', name: 'commit', value: 'create', class: "bg-purple-300 text-white rounded px-2 py-2" %>
+
+    <div id="preview_area"></div>
+
+    <div class="text-center mb-4 hidden" id="create-button-container">
+      <%= form.submit 'この内容で作成', name: 'commit', value: 'この内容で作成', class: "bg-purple-300 text-white rounded px-2 py-2" %>
     </div>
   <% end %>
-
-  <div id="preview_area"></div>
-  <div>
-    <button id="send_gift_button" class="bg-orange-300 text-white rounded px-2 py-2">クーポン券を贈る</button>
-  </div>
 </div>
+
+<script>
+  document.addEventListener("turbo:load", () => {
+    document.getElementById('preview-button').addEventListener('click', () => {
+      // 2秒待ってから実行する
+      setTimeout(() => {
+        document.getElementById('create-button-container').classList.remove('hidden');
+      }, 2500);
+    });
+  });
+</script>

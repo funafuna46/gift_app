@@ -11,4 +11,13 @@ class Gift < ApplicationRecord
   validates :title, presence: true
   validates :content, presence: true, length: { maximum: 20 }
   validates :public_status, presence: true
+
+  def self.ransackable_attributes(auth_object = nil)
+    # 検索可能な属性
+    %w[title content recipient_category_id]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[favorited_by favorites gift_card_template gift_category recipient_category]
+  end
 end

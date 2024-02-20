@@ -44,3 +44,6 @@ Metrics/AbcSize:
 
 I18nLocaleTexts:
   Enabled: false
+
+Lint/UnusedMethodArgument:
+  Enabled: false

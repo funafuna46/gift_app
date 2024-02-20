@@ -1,28 +1,32 @@
-<h1>ギフト券一覧</h1>
 
-<h2>テンプレートギフト券</h2>
-<div class="flex flex-wrap m-2">
-  <% @template_gifts.each do |template_gift| %>
-    <div class="w-1/2 p-2">
-      <p><%= image_tag template_gift.image_url, class: "w-full h-auto" %></p>
-      <% if current_user.favorite?(template_gift) %>
-        <%= render 'gifts/unfavorite', { gift: template_gift } %>
-      <% else %>
-        <%= render 'gifts/favorite', { gift: template_gift } %>
-      <% end %>
-    </div>
+<div class="mx-4 my-2">
+  <%= search_form_for @q do |f| %>
+    <%= f.collection_select :recipient_category_id_eq, RecipientCategory.all, :id, :translated_category_type, include_blank: '贈り先カテゴリ' %>
+    <%= button_tag(type: 'submit') do %>
+      <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
+    <% end %>
+  <% end %>
+
+  <%= search_form_for @q, class: "flex items-center gap-2" do |f| %>
+    <%= f.search_field :title_or_content_cont, placeholder: "キーワード検索", class: "h-8 px-4 w-1/2 mt-1 rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+    <%= button_tag(type: 'submit') do %>
+      <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
+    <% end %>
   <% end %>
 </div>
 
-<h2>その他のギフト券</h2>
+
 <div class="flex flex-wrap m-2">
-  <% @gifts.each do |gift| %>
-  <div class="w-1/2 p-2">
+  <% @all_gifts.each do |gift| %>
+    <div class="w-1/2 p-2">
       <p><%= image_tag gift.image_url, class: "w-full h-auto" %></p>
-      <% if current_user.favorite?(gift) %>
-        <%= render 'gifts/unfavorite', { gift: gift } %>
-      <% else %>
-        <%= render 'gifts/favorite', { gift: gift } %>
+
+      <% if gift.kind_of?(Gift) %>
+        <% if current_user.favorite?(gift) %>
+          <%= render 'gifts/unfavorite', { gift: gift } %>
+        <% else %>
+          <%= render 'gifts/favorite', { gift: gift } %>
+        <% end %>
       <% end %>
     </div>
   <% end %>

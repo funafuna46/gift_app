@@ -7,8 +7,6 @@ class OriginalGiftsController < ApplicationController
 
   def create
     @gift = Gift.new(gift_params)
-    Rails.logger.debug { "Gift params: #{gift_params.inspect}" }
-    Rails.logger.debug { "Gift design_id: #{@gift.design_id}" }
     design = GiftCardTemplate.find(@gift.design_id)
 
     @gift.user = current_user
@@ -21,17 +19,17 @@ class OriginalGiftsController < ApplicationController
     @gift.gift_category = original_category
 
     case params[:commit]
-    when 'preview'
+    when 'プレビュー'
       # 同じくCloudinaryを使用して画像を合成
       image_url = Cloudinary::Uploader.upload(design.image_url,
         transformation: [
           {
-            overlay: "text:Arial_40:#{@gift.title}",
+            overlay: "text:Arial_50:#{@gift.title}",
             gravity: "center",
             color: "#000000"
           },
           {
-            overlay: "text:Arial_20:#{@gift.content}",
+            overlay: "text:Arial_30:#{@gift.content}",
             gravity: "center",
             y: 50, # Y軸を調整してテキストを中央より下に配置
             color: "#000000"
@@ -46,17 +44,17 @@ class OriginalGiftsController < ApplicationController
         end
       end
 
-    when 'create'
+    when 'この内容で作成'
       # 作成処理
       image_url = Cloudinary::Uploader.upload(design.image_url,
         transformation: [
           {
-            overlay: "text:Arial_40:#{@gift.title}",
+            overlay: "text:Arial_50:#{@gift.title}",
             gravity: "center",
             color: "#000000"
           },
           {
-            overlay: "text:Arial_20:#{@gift.content}",
+            overlay: "text:Arial_30:#{@gift.content}",
             gravity: "center",
             y: 50, # Y軸を調整してテキストを中央より下に配置
             color: "#000000"

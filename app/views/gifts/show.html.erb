@@ -11,6 +11,5 @@
     <p>TO: <%= @gift.recipient %></p>
     <p>有効期限: <%= @gift.expiration_date %></p>
   </div>
-
-  <button id="send_gift_button" class="bg-orange-300 text-white rounded px-2 py-2">友だちに贈る</button>
+  <button id="send_gift_button" data-share-url="<%= @gift.image_url %>" class="bg-orange-300 text-white rounded px-2 py-2 mt-2 items-center">友だちに贈る</button>
 </div>

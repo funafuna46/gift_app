@@ -5,6 +5,7 @@ document.addEventListener('turbo:load', () => {
   if (sendButton) {
     sendButton.addEventListener('click', () => {
       console.log('ボタンがクリックされました！');
+      const shareUrl = sendButton.getAttribute('data-share-url');
 
       liff
         .shareTargetPicker(
@@ -23,8 +24,12 @@ document.addEventListener('turbo:load', () => {
                   {
                     "type": "uri",
                     "label": "クーポン券を見る",
-                    // クーポン券詳細ページ、もしくは専用ページに変更する
-                    "uri": "https://res.cloudinary.com/dk4bsjak1/image/upload/f_auto/v1707704247/%E8%82%A9%E3%81%9F%E3%81%9F%E3%81%8D%E5%88%B8_p8cqbr.png"
+                    "uri": shareUrl
+                  },
+                  {
+                    "type": "uri",
+                    "label": "LINE公式アカウントを友だち追加",
+                    "uri": "https://lin.ee/mYViS6T"
                   }
                 ]
               }

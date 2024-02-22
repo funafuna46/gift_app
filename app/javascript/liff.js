@@ -31,7 +31,10 @@ document.addEventListener('turbo:load', () => {
       fetch(request)
       .then(response => response.json())
       .then(data => {
-        data_id = data
+        if (data.reload && !sessionStorage.getItem('reloaded')) {
+          sessionStorage.setItem('reloaded', 'true'); // リロード状態を保存
+          window.location.reload(); // ページをリロード
+        }
       })
     })
   })

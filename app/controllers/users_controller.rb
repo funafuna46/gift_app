@@ -22,7 +22,7 @@ class UsersController < ApplicationController
       User.create(line_user_id: line_user_id)
       # ユーザーが存在する場合、セッションにユーザーIDを保存し、ユーザー情報をJSON形式でフロントエンドに返す
     elsif (session[:user_id] = user.id)
-      render json: user
+      render json: { user: user, reload: true }
     end
   end
 end

@@ -3,6 +3,9 @@
     <img src="<%= @gift.image_url %>" alt="<%= @gift.title %>">
   </div>
   <div class="flex justify-end w-full">
+    <%= link_to edit_original_gift_path(@gift), class: "text-gray-500 mr-2" do %>
+      <i class="fa-solid fa-pen"></i>
+    <% end %>
     <%= button_to original_gift_path(@gift), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "text-gray-500" do %>
       <i class="fa-solid fa-trash"></i>
     <% end %>

@@ -5,6 +5,11 @@ class OriginalGiftsController < ApplicationController
     render 'gift_creator'
   end
 
+  def edit
+    @gift = Gift.find(params[:id])
+    @templates = GiftCardTemplate.where(has_message: false)
+  end
+
   def create
     @gift = Gift.new(gift_params)
     design = GiftCardTemplate.find(@gift.design_id)
@@ -71,6 +76,32 @@ class OriginalGiftsController < ApplicationController
     end
   end
 
+  def update
+    @gift = Gift.find(params[:id])
+
+    case params[:commit]
+    when 'プレビュー'
+      preview_image_url = generate_image_for_preview(gift_params)
+
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update('preview_area',
+                                                    partial: 'original_gifts/preview',
+                                                    locals: { preview_url: preview_image_url })
+        end
+      end
+    when 'この内容で更新'
+      if @gift.update(gift_params)
+        new_image_url = generate_image(@gift)
+        @gift.update(image_url: new_image_url)
+        redirect_to gift_path(@gift), notice: 'ギフト券が更新されました。'
+      else
+        @templates = GiftCardTemplate.where(has_message: false)
+        render :edit
+      end
+    end
+  end
+
   def destroy
     @gift = Gift.find(params[:id])
     if @gift.user == current_user
@@ -85,5 +116,42 @@ class OriginalGiftsController < ApplicationController
 
   def gift_params
     params.require(:gift).permit(:recipient, :expiration_date, :design_id, :title, :content, :public_status, :recipient_category_id)
+  end
+
+  # 新しい画像を生成するためのメソッド
+  def generate_image_for_preview(params)
+    design = GiftCardTemplate.find(params[:design_id])
+    Cloudinary::Uploader.upload(design.image_url,
+      transformation: [
+        {
+          overlay: "text:Arial_50:#{params[:title]}",
+          gravity: "center",
+          color: "#000000"
+        },
+        {
+          overlay: "text:Arial_30:#{params[:content]}",
+          gravity: "center",
+          y: 50,
+          color: "#000000"
+        }
+      ])['url']
+  end
+
+  def generate_image(gift)
+    design = GiftCardTemplate.find(gift.design_id)
+    Cloudinary::Uploader.upload(design.image_url,
+      transformation: [
+        {
+          overlay: "text:Arial_50:#{gift.title}",
+          gravity: "center",
+          color: "#000000"
+        },
+        {
+          overlay: "text:Arial_30:#{gift.content}",
+          gravity: "center",
+          y: 50,
+          color: "#000000"
+        }
+      ])['url']
   end
 end

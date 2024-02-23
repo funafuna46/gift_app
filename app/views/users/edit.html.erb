@@ -10,7 +10,7 @@
     <div class="mb-4">
       <%= form.label :uploaded_avatar, 'アイコン'%>
       <%= form.file_field :uploaded_avatar, accept: 'image/*'  %>
-      <%= f.hidden_field :uploaded_avatar_cache %>
+      <%= form.hidden_field :uploaded_avatar_cache %>
     </div>
     <div class="mb-4">
       <% if @user.uploaded_avatar.present? %>

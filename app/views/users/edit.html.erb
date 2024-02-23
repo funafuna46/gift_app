@@ -1,0 +1,27 @@
+<div class="m-2 flex flex-col items-center justify-center">
+  <h1 class="mb-4">プロフィール編集</h1>
+
+  <%= form_with(model: @user, local: true) do |form| %>
+    <div class="mb-4">
+      <%= form.label :'ユーザー名'%>
+      <%= form.text_field :name, class: "border border-gray-300 rounded px-2 py-1" %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.label :uploaded_avatar, 'アイコン'%>
+      <%= form.file_field :uploaded_avatar, accept: 'image/*'  %>
+      <%= form.hidden_field :uploaded_avatar_cache %>
+    </div>
+    <div class="mb-4">
+      <% if @user.uploaded_avatar.present? %>
+        <%= image_tag @user.uploaded_avatar.url, class: "rounded-full w-32 h-32 object-cover" %>
+      <% else %>
+        <%= image_tag @user.avatar, class: "rounded-full w-32 h-32 object-cover" %>
+      <% end %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.submit "更新", class: "bg-green-300 text-white rounded px-4 py-2" %>
+    </div>
+  <% end %>
+</div>

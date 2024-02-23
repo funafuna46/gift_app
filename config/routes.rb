@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'static_pages/select_gift_type'
   delete '/logout', to: 'sessions#destroy'
 
-  resources :users, only: %i[show create]
+  resources :users, only: %i[show create edit update]
   resources :gifts, only: %i[index show] do
     resources :favorites, only: %i[create destroy]
   end

@@ -6,3 +6,37 @@ ja:
         friend: "友人"
         colleague: "同僚"
         other: "その他"
+  activerecord:
+    attributes:
+      user:
+        name: 名前
+      gift:
+        design_id: デザイン
+        recipient: 受取人名
+        title: クーポン名
+        content: メッセージ
+        expiration_date: 有効期限
+        public_status: ""
+        recipient_category_id: 受取人カテゴリ
+        recipient_category: 受取人カテゴリ
+        gift_card_template: ""
+        expiration_date: 有効期限
+    errors:
+      models:
+        gift:
+          attributes:
+            design_id:
+              blank: "を選択してください"
+            expiration_date:
+              blank: "を設定してください"
+            recipient_category:
+              required: "を選択してください"
+            gift_card_template:
+              required: ""
+            public_status:
+              blank: "公開/非公開を選択してください"
+              inclusion: ""
+            recipient_category_id:
+              blank: "を選択してください"
+      messages:
+        blank: "を入力してください"

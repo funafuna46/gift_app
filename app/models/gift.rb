@@ -10,6 +10,7 @@ class Gift < ApplicationRecord
   validates :recipient, presence: true
   validates :title, presence: true
   validates :content, presence: true, length: { maximum: 20 }
+  validates :expiration_date, presence: true
   validates :public_status, inclusion: { in: [true, false] }
 
   def self.ransackable_attributes(auth_object = nil)

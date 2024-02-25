@@ -2,6 +2,7 @@
   <h1 class="mb-4">プロフィール編集</h1>
 
   <%= form_with(model: @user, local: true) do |form| %>
+  <%= render 'shared/error_messages', object: form.object %>
     <div class="mb-4">
       <%= form.label :'ユーザー名'%>
       <%= form.text_field :name, class: "border border-gray-300 rounded px-2 py-1" %>

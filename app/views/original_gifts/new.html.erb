@@ -1,5 +1,6 @@
 <div class="m-2 flex flex-col items-center">
-  <%= form_with id: 'gift_card_form', model: Gift.new, url: original_gifts_path, local: true do |form| %>
+  <%= form_with id: 'gift_card_form', model: @gift, url: original_gifts_path, local: true do |form| %>
+  <%= render 'shared/error_messages', object: form.object %>
   <p class="text-sm">デザインを選んでください</p>
     <div class="m-2 grid grid-cols-2 gap-4">
       <% @templates.each do |template| %>
@@ -32,7 +33,14 @@
 
     <div class="mb-4">
       <%= form.label :public_status, '一覧への公開/非公開：', class: "text-sm"  %>
-      <%= form.select :public_status, [['公開', true], ['非公開', false]], include_blank: '選択してください' %>
+      <div>
+        <%= form.radio_button :public_status, true, checked: @gift.public_status.nil? || @gift.public_status %>
+        <%= form.label :public_status, '公開', value: true %>
+      </div>
+      <div>
+        <%= form.radio_button :public_status, false, checked: !@gift.public_status.nil? && !@gift.public_status %>
+        <%= form.label :public_status, '非公開', value: false %>
+      </div>
     </div>
 
     <div class="mb-4">
@@ -47,15 +55,15 @@
       <%= form.submit 'プレビュー', id: 'preview-button', name: 'commit', value: 'プレビュー', class: "bg-blue-300 text-white rounded px-2 py-2" %>
     </div>
 
-    <div id="preview_area"></div>
+    <div id="preview_area" class="text-center mb-4">ここにプレビューが表示されます</div>
 
-    <div class="text-center mb-4 hidden" id="create-button-container">
+    <div class="text-center mb-4" id="create-button-container">
       <%= form.submit 'この内容で作成', name: 'commit', value: 'この内容で作成', class: "bg-purple-300 text-white rounded px-2 py-2" %>
     </div>
   <% end %>
 </div>
 
-<script>
+<!-- <script>
   document.addEventListener("turbo:load", () => {
     document.getElementById('preview-button').addEventListener('click', () => {
       // 2秒待ってから実行する
@@ -64,4 +72,4 @@
       }, 2500);
     });
   });
-</script>
+</script> -->

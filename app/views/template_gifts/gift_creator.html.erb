@@ -1,21 +1,40 @@
-<div class="flex flex-col items-center">
+<div class="m-2 flex flex-col items-center">
   <%= form_with id: 'gift_card_form', model: Gift.new, url: preview_template_gifts_path, local: true do |form| %>
-    <% @templates.each do |template| %>
-      <label>
-        <%= form.radio_button :design_id, template.id %>
-        <%= image_tag template.image_url, alt: template.name %>
-      </label>
-    <% end %>
+  <div class="m-2 grid grid-cols-2 gap-4">
+      <% @templates.each do |template| %>
+        <label>
+          <%= form.radio_button :design_id, template.id, data: { image_url: template.image_url } %>
+          <%= image_tag template.image_url, alt: template.name, class: "w-full h-auto" %>
+        </label>
+      <% end %>
+    </div>
 
-    <%= form.text_field :recipient, placeholder: '受取人名' %>
-    <%= form.date_field :expiration_date %>
+
+    <%#= form.text_field :recipient, placeholder: '受取人名' %>
+    <%#= form.date_field :expiration_date %>
     <div class="text-center">
-      <%= form.submit 'プレビュー', class: "bg-blue-300 text-white rounded px-2 py-2" %>
+      <%#= form.button 'プレビュー', class: "bg-blue-300 text-white rounded px-2 py-2" %>
     </div>
   <% end %>
 
   <div id="preview_area"></div>
   <div>
-    <button id="send_gift_button" class="bg-orange-300 text-white rounded px-2 py-2">クーポン券を贈る</button>
+
+    <button id="send_gift_button" data-share-url="" class="bg-orange-300 text-white rounded px-2 py-2 mt-2 items-center">友だちに贈る</button>
   </div>
 </div>
+
+<script>
+  document.addEventListener("turbo:load", () => {
+    document.querySelectorAll('input[type=radio][name="gift[design_id]"]').forEach((radio) => {
+      radio.addEventListener('change', () => {
+        const selectedImageUrl = radio.dataset.imageUrl;
+        console.log("選択されたデザインのURL:", selectedImageUrl);
+
+        // "友だちに贈る" ボタンの `data-share-url` 属性を更新
+        const sendGiftButton = document.getElementById('send_gift_button');
+        sendGiftButton.setAttribute('data-share-url', selectedImageUrl);
+      });
+    });
+  });
+</script>

@@ -1,27 +1,37 @@
-<div class="flex flex-col items-center">
-  <h1 class="text-3xl font-bold underline">
+<div class="flex flex-col items-center m-2">
+  <h1 class="text-3xl font-bold text-orange-400 mb-2">
     Thankyoupon
   </h1>
-  <h2>サービス概要</h2>
+  <h2 class="text-center whitespace-normal mb-2">
+    ありがとうの気持ちをクーポン券にして<br>贈れるサービスです
+  </h2>
+  <h2 class="text-center whitespace-normal mb-2">
+    LINE公式アカウントを友だち登録して<br>早速使ってみましょう！
+  </h2>
+  <i class="fa-solid fa-down-long text-green-400 mb-2"></i>
+  <img src="https://qr-official.line.me/gs/M_255znrwe_GW.png?oat_content=qr" class="w-24 h-24 mb-4">
+
   <h2>使い方</h2>
-  <button class="bg-yellow-300 text-white rounded px-2 py-2">クーポン券を見てみる</button>
-  <a href="https://lin.ee/mYViS6T"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a>
-  <img src="https://qr-official.line.me/gs/M_255znrwe_GW.png?oat_content=qr">
-  <%= link_to "クーポン券を贈る", static_pages_select_gift_type_path, class: "bg-green-300 text-white rounded px-2 py-2" %>
-  <%= link_to "テンプレートクーポン券", template_gifts_path, class: "bg-blue-300 text-white rounded px-2 py-2" %>
-  <%= link_to "オリジナルクーポン券", original_gifts_path, class: "bg-red-300 text-white rounded px-2 py-2" %>
-  <% if session[:user_id] %>
-    <%= link_to "プロフィールページ", user_path(session[:user_id]), class: "bg-orange-300 text-white rounded px-2 py-2" %>
-  <% else %>
-    セッションなし
-  <% end %>
-  <div id="loggedInMessage" style="display:none;" class="alert">
-    ログインしています。
-  </div>
-  <div id="loggedOutMessage" style="display:none;" class="alert">
-    ログインしていません。
+  <div class="m-4">
+    <p class="font-bold">STEP 1</p>
+    <p>クーポン券の種類を選んでください</p>
+    <p>1. テンプレート</p>
+    <p>2. オリジナル</p>
+    <p class="mb-2">3. AI生成（本リリースで追加予定）</p>
+
+    <p class="font-bold">STEP 2</p>
+    <p>友だちに贈るボタンで、LINEの友だちを選択して送信！</p>
   </div>
 
-  <%= button_to 'Logout', logout_path, method: :delete, class: "bg-gray-300 text-white rounded px-2 py-2" %>
+  <%= link_to "クーポン券を贈る", static_pages_select_gift_type_path, class: "bg-green-300 text-white rounded px-2 py-2" %>
+  <%#= link_to "テンプレートクーポン券", template_gifts_path, class: "bg-blue-300 text-white rounded px-2 py-2" %>
+  <%#= link_to "オリジナルクーポン券", original_gifts_path, class: "bg-red-300 text-white rounded px-2 py-2" %>
+  <%# if session[:user_id] %>
+    <%#= link_to "プロフィールページ", user_path(session[:user_id]), class: "bg-orange-300 text-white rounded px-2 py-2" %>
+  <%# else %>
+    <!-- セッションなし -->
+  <%# end %>
+
+  <%#= button_to 'Logout', logout_path, method: :delete, class: "bg-gray-300 text-white rounded px-2 py-2" %>
 
 </div>
